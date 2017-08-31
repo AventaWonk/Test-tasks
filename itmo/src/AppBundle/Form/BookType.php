@@ -19,7 +19,9 @@ class BookType extends AbstractType
       ->add('title', TextType::class)
       ->add('pages', IntegerType::class)
       ->add('year', IntegerType::class)
-      ->add('isbn', TextType::class)
+      ->add('isbn', TextType::class, [
+        'label' => 'ISBN',
+      ])
       ->add('authors', EntityType::class, [
         'class' => 'AppBundle:Author',
         'choice_label' => function($author) {

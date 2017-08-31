@@ -132,7 +132,6 @@ class AuthorController extends Controller
       return $this->redirectToRoute('author');
     }
 
-    $this->removeRelationsFor($author);
     $em = $this->getDoctrine()->getManager();
     $em->remove($author);
     $em->flush();

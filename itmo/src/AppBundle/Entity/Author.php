@@ -153,10 +153,10 @@ class Author
      */
     public function getInitials()
     {
-        $initials =  $this->lastName . " " . $this->firstName[0] . ".";
+        $initials =  $this->lastName . " " .  mb_substr($this->firstName, 0, 1) . ".";
 
         if ($this->patronymic) {
-          $initials .= $this->patronymic[0] . ".";
+          $initials .=  mb_substr($this->patronymic, 0, 1) . ".";
         }
 
         return $initials;

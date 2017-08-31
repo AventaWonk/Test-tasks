@@ -31,11 +31,6 @@ class BookController extends Controller
    */
   public function addAction(Request $request)
   {
-    /**
-     * @TODO
-     * Add image uploader
-     * Move some of logic to service
-     */
     $book = new Book();
     $form = $this->createForm(BookType::class, $book)
       ->handleRequest($request);
@@ -98,8 +93,9 @@ class BookController extends Controller
       return $this->redirectToRoute('book');
     }
 
-    if ($book->getImage()) {
-      $book->setImage(new File($this->getParameter('images_directory').'/'.$book->getImage()));
+    $imageName = $book->getImage();
+    if ($imageName) {
+      $book->setImage(new File($this->getParameter('images_directory').'/' . $imageName));
     }
 
     $form = $this->createForm(BookType::class, $book)
@@ -107,14 +103,16 @@ class BookController extends Controller
 
     if ($form->isSubmitted() && $form->isValid()) {
       $book = $form->getData();
-      $image = $book->getImage();
-      if ($image) {
+
+      if ($image = $book->getImage()) {
         $fileName = md5(uniqid()).'.'.$image->guessExtension();
         $image->move(
           $this->getParameter('images_directory'),
           $fileName
         );
         $book->setImage($fileName);
+      } else  if ($imageName) {
+        $book->setImage($imageName);
       }
 
       $em = $this->getDoctrine()->getManager();
@@ -184,8 +182,8 @@ class BookController extends Controller
       ->setParameter('year', $book->getYear())
       ->setParameter('isbn', $book->getIsbn());
 
-    $sameBook = $query->getResult()[0];
-    if ($sameBook && $sameBook->getId() != $book->getId()) {
+    $sameBook = $query->getResult();
+    if ($sameBook && $sameBook[0] && $sameBook[0]->getId() != $book->getId()) {
       return true;
     }
     return false;

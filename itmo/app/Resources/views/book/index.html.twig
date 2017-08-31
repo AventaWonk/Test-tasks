@@ -10,47 +10,51 @@
 
 <div class="row">
     <div class="col-md-12">
-        <table class="table table-md">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Title</th>
-                    <th>Year</th>
-                    <th>Pages</th>
-                    <th>ISBN</th>
-                    <th>Authors</th>
-                    <th class="controls"></th>
-                </tr>
-            </thead>
-            <tbody>
-              {% for book in books %}
-                  <tr>
-                      <td>
-                        {% if book.image %}
-                            <img src="/uploads/images/{{book.image}}" alt="Book image">
-                        {% endif %}
-                      </td>
-                      <td>{{book.title}}</td>
-                      <td>{{book.year}}</td>
-                      <td>{{book.pages}}</td>
-                      <td>{{book.isbn}}</td>
-                      <td>
-                        {% for author in book.authors %}
-                           <li> {{ author.initials }} </li>
-                        {% endfor %}
-                      </td>
-                      <td>
-                          <a href="/book/update/{{ book.id }}">
-                              <span class="glyphicon glyphicon-pencil"></span>
-                          </a>
-                          <a href="/book/delete/{{ book.id }}">
-                              <span class="glyphicon glyphicon-remove"></span>
-                          </a>
-                      </td>
-                  </tr>
-              {% endfor %}
-            </tbody>
-        </table>
+        {% if books %}
+            <table class="table table-md">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Year</th>
+                        <th>Pages</th>
+                        <th>ISBN</th>
+                        <th>Authors</th>
+                        <th class="controls"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for book in books %}
+                      <tr>
+                          <td>
+                            {% if book.image %}
+                                <img src="/uploads/images/{{book.image}}" alt="Book image">
+                            {% endif %}
+                          </td>
+                          <td>{{book.title}}</td>
+                          <td>{{book.year}}</td>
+                          <td>{{book.pages}}</td>
+                          <td>{{book.isbn}}</td>
+                          <td>
+                            {% for author in book.authors %}
+                               <li> {{ author.initials }} </li>
+                            {% endfor %}
+                          </td>
+                          <td>
+                              <a href="/book/update/{{ book.id }}">
+                                  <span class="glyphicon glyphicon-pencil"></span>
+                              </a>
+                              <a href="/book/delete/{{ book.id }}">
+                                  <span class="glyphicon glyphicon-remove"></span>
+                              </a>
+                          </td>
+                      </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+          <h4 class="text-center">Has not created any books yet</h4>
+        {% endif %}
     </div>
 </div>
 
