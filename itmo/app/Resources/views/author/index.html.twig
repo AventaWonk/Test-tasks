@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <ol class="breadcrumb breadcrumb-md">
+        <li><a href="/">Home</a></li>
+        <li>Authors</li>
+    </ol>
+    <a href="add" class="btn btn-default pull-right">Create</a>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-md">
+                <thead>
+                    <tr>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Middle name</th>
+                        <th>Books</th>
+                        <th class="controls"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for author in authors %}
+                      <tr>
+                          <td>{{author.firstName}}</td>
+                          <td>{{author.lastName}}</td>
+                          <td>{{author.patronymic}}</td>
+                          <td>{{author.books|length}}</td>
+                          <td>
+                              <a href="/author/update/{{ author.id }}">
+                                  <span class="glyphicon glyphicon-pencil"></span>
+                              </a>
+                              <a href="/author/delete/{{ author.id }}">
+                                  <span class="glyphicon glyphicon-remove"></span>
+                              </a>
+                          </td>
+                      </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
