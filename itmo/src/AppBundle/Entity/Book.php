@@ -34,6 +34,12 @@ class Book
      * @var int
      *
      * @ORM\Column(name="year", type="smallint")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 2018,
+     *      minMessage = "Enter a valid year of publishing",
+     *      maxMessage = "Enter a valid year of publishing"
+     * )
      */
     private $year;
 
@@ -41,6 +47,12 @@ class Book
      * @var int
      *
      * @ORM\Column(name="pages", type="integer")
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 20000,
+     *      minMessage = "Enter a valid number of pages",
+     *      maxMessage = "Enter a valid number of pages"
+     * )
      */
     private $pages;
 
@@ -48,6 +60,10 @@ class Book
      * @var string
      *
      * @ORM\Column(name="isbn", type="string", unique=true)
+     * @Assert\Regex(
+     *     pattern="/^(97(8|9))?\d{9}(\d|X)$/",
+     *     message="Enter a valid ISBN number"
+     * )
      */
     private $isbn;
 
